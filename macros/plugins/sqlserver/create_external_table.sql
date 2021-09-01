@@ -8,9 +8,7 @@
 
     create external table {{source(source_node.source_name, source_node.name)}} (
         {% for column in columns %}
-            {# TODO set nullity based on schema tests?? #}
-            {%- set nullity = 'NOT NULL' if 'not_null' in columns.tests else 'NULL'-%}
-            {{adapter.quote(column.name)}} {{column.data_type}} {{nullity}}
+            {{adapter.quote(column.name)}} {{column.data_type}}
             {{- ',' if not loop.last -}}
         {% endfor %}
     )
